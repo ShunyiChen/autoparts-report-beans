@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PurchaseOrderReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1eb32381-bf46-4306-9e2e-01a767c462a3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="7ab7c4c3-065e-489f-9670-f5021909ecda"/>
+	<subDataset name="dataset2" uuid="84b9cff5-1018-4700-953f-730e0552df83"/>
+	<subDataset name="Table Dataset 1" uuid="60b91f85-85db-43ed-896b-962d41ffd120"/>
+	<field name="purchaseOrder" class="com.shunyi.autoparts.model.PurchaseOrder"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="notes" class="java.lang.String"/>
+	<field name="sku" class="com.shunyi.autoparts.model.SKU"/>
+	<field name="priceExcludingTax" class="java.math.BigDecimal"/>
+	<field name="amountExcludingTax" class="java.math.BigDecimal"/>
+	<field name="taxAmount" class="java.math.BigDecimal"/>
+	<variable name="ii" class="java.lang.Integer" calculation="Count"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="0" width="250" height="35" uuid="c3dd471b-ce6a-49d0-a40a-2762355e7253"/>
+				<textElement>
+					<font fontName="宋体" size="20"/>
+				</textElement>
+				<text><![CDATA[大连鑫艺沣进货清单]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="25" width="335" height="20" uuid="3d26dad9-7bfc-41e7-a82a-f0df7d2946e0"/>
+				<textElement>
+					<font fontName="宋体" size="14"/>
+				</textElement>
+				<text><![CDATA[电话: 83625656  83627676]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="35" y="0" width="53" height="20" uuid="7c783dfe-7855-4ba6-ba2b-e0bf744a8b50"/>
+				<text><![CDATA[进货单号:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="60" height="20" uuid="41a63b30-d0ba-4b49-b501-d20aace57bf4"/>
+				<text><![CDATA[发票号:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="485" y="0" width="100" height="20" uuid="05f068dc-fb6f-4848-addf-44d3e03a70ec"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="502" y="0" width="100" height="20" uuid="3914265b-1da3-4844-b743-8741b2d1f725"/>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="15" width="53" height="20" uuid="ad7baa09-20ef-4591-bf8e-3eecde1c7639"/>
+				<text><![CDATA[供应商名称:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="98" y="0" width="100" height="20" uuid="ed692860-6160-427c-a4b3-1d6cfaf8db8e"/>
+				<textFieldExpression><![CDATA[$F{purchaseOrder}.getOrderNo()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="15" width="100" height="20" uuid="ba9a26d7-5eb0-4dea-bacc-114e9b222fdc"/>
+				<textFieldExpression><![CDATA[$F{purchaseOrder}.getSupplier().name]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="100" height="20" uuid="cb58f2e8-30a7-4ff8-85e0-7ec3374f854d"/>
+				<textFieldExpression><![CDATA[$F{purchaseOrder}.getInvoiceNo()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="475" y="0" width="100" height="20" uuid="55e6ed98-fc74-43d0-849b-3c9068230744"/>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="15" width="49" height="20" uuid="d182eeff-4331-46ca-a662-e6c2dd9eb4b9"/>
+				<text><![CDATA[打印日期:]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="349" y="15" width="100" height="20" uuid="8982e436-8115-49a3-8254-58c1f7b7e8a7"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="1" width="51" height="20" uuid="19fee834-9456-4532-ad95-61bc989822e4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[数量]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="1" width="63" height="20" uuid="1bde64ab-f8b4-4a0a-bcbe-12c4f219b4d4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[配件编码]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="1" width="96" height="20" uuid="3da8edeb-3cd3-4904-b760-1bfd0274f1a1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[名称]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="1" width="50" height="20" uuid="8ebd5b72-1360-4d42-a9be-f5edcaacc702"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[单位]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="1" width="73" height="20" uuid="084894c6-cb44-46cf-8f03-35306d2e512f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[不含税单价]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="1" width="63" height="20" uuid="e94e5299-b4e6-4b49-bd6d-f17ddb6070c0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[不含税金额]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="387" y="1" width="48" height="20" uuid="86d40984-1016-4838-8e23-ffb286e79bc6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[税额]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="1" width="48" height="20" uuid="69f4a38a-d8b7-4d97-8f12-92214f82a40c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[车型]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="1" width="80" height="20" uuid="b11aa67d-fe39-4075-81fa-475699acd899"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[备注]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="483" y="0" width="80" height="20" uuid="4d36561f-68f9-4829-bdd3-cc20916972ae"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{notes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-9" y="0" width="63" height="20" uuid="546a81aa-89b2-4585-892a-0bd3c3e30ef5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sku}.getSkuCode()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="0" width="96" height="20" uuid="afadacb6-1789-46af-b993-c0bb58c1fbb0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sku}.getSkuName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="50" height="20" uuid="73965814-30d2-43a3-81b7-03d7f02802cb"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sku}.getProduct().getUnit().getName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="51" height="20" uuid="5ed08375-8306-4dcc-9823-25fa2bfd9b99"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="0" width="73" height="20" uuid="d84f13d4-61f1-448f-85ca-600f6062a930"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{priceExcludingTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="0" width="63" height="20" uuid="9af0e4de-22a1-42b3-941c-f327c5563d0d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{amountExcludingTax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="48" height="20" uuid="c1ea8332-5659-4450-a629-a20c7ebf88ea"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{taxAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="48" height="20" uuid="f7a3f0ce-4465-4f79-af57-4ca8ca7239e6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sku}.getProduct().getCar().getName()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="-9" y="0" width="44" height="20" uuid="d71797f7-53c6-44b1-8d89-ec240a9cba5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[经办人:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="0" width="100" height="20" uuid="1e3829d0-a90a-45e8-9d99-10aef48b7cd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{purchaseOrder}.getOperator()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="471" y="0" width="53" height="20" uuid="fd27858a-e378-4e6e-9500-aec4efc9a4f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[操作员:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="491" y="0" width="100" height="20" uuid="8baef809-4612-4500-8a90-a25b57e79dd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{purchaseOrder}.getUserName()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<staticText>
+				<reportElement x="414" y="-53" width="100" height="20" uuid="2facb84c-2436-47cf-bdd5-0eb319dbdc5d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="426" y="-53" width="100" height="20" uuid="0c9a3972-4374-4852-a907-c1fcedd084c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="444" y="-53" width="100" height="20" uuid="c5f44c1a-5612-4e52-a852-4dbce67e6291"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[页]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
