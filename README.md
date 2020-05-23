@@ -2,7 +2,7 @@
 report-beans be used as bean datasource
 
 
-Gradle操作：
+Gradle操作：gradle-6.2.2
 clean
 buildDependents
 
